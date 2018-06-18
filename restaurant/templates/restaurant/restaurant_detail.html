@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% with a as b%}
 <div class="container-fluid">
 <br>
 	<div class="container">
@@ -26,12 +26,14 @@
 									      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 shop-tab">
 									       	<div class="container">
 									       		{% if restaurant_obj %}
+
 									       		{% for menu_item in restaurant_obj.menu.all %}
 									       		<div >
 									       			<h3 class="text-center">{{ menu_item.title }}</h3>
 									       		</div>
 									       		{% for dish in menu_item.dishes.all %}	
 											    <div class="row">
+											    	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 											            <div class="media">
 												              <div class="media-left">
 												                <a href="#">
@@ -42,12 +44,17 @@
 												                <a href="#"><h4 class="media-heading">{{ dish.name }}</h4></a>
 												                <p >{{ dish.price }}</p>
 												              </div>
-												              <div class="pull-right">
-												              	<p>Add</p>
-												              </div>
-												            </div>
-											    	</div>
-											    
+												        </div>
+												    </div>
+												    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 mt-4 ">
+												    <form action="{% url 'cart:update' dish.id %}" method='POST'>
+												    	{% csrf_token %}
+												    	<input type="hidden" name="rest_id" value="{{ restaurant_obj.id }}">
+												    	<input type="hidden" name="remove" value="0">
+												    	<button class=" btn btn-warning">Add</button>
+												    </form>
+												    </div>
+											    </div>											    
 											    	<hr>
 											    	{% endfor %}
 											    	{% endfor %}
@@ -56,7 +63,34 @@
 									       
 									      </div>
 									      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 shop-tab-menu">
-									        	Cart here 
+									        	<h3 class="text-center">Cart</h3>
+									        	<div class="container">
+									        		<div class="row">
+									        			<div class="col">
+									        			<table class="table">
+									        			<thead>
+									        				<th>Item</th><th>Price</th>
+									        			</thead>
+									        			{% for item in cart.items.all %}
+									        					<tr><td>{{ item }}</td> <td>   {{ item.price  }}</td>
+									        						<td>
+									        							<form action="{% url 'cart:update' item.id %}" method='POST'>
+												    	{% csrf_token %}
+												    	<input type="hidden" name="remove" value="1">
+												    	<input type="hidden" name="rest_id" value="{{ restaurant_obj.id }}">
+												    	<button class=" btn btn-xs btn-danger">X</button>
+												    </form>
+
+									        						</td>
+									        					</tr>
+									        			{% endfor %}
+									        			</table>
+									        			</div>
+									        		</div>
+									        		
+									        		sub total: {{ cart.subtotal }}
+									        		total: {{ cart.total }}
+									        	</div>
 									      </div><br>
 							       
 								</div>
@@ -80,5 +114,5 @@
 	</div>
 </div>
 
-	
+	{% endwith %}
 {% endblock %}

@@ -21,8 +21,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index , name='index'),
-    path('users/',include("users.urls")),
-    path('restaurant/',include("restaurant.urls")),
+    path('accounts/',include(("users.urls",'users'),namespace='users')),
+    path('restaurant/',include(("restaurant.urls",'restaurant'),namespace='restaurant')),
     path('search/',include(("search.urls",'search'),namespace='search')),
     path('cart/',include(("cart.urls",'cart'),namespace='cart')),
        

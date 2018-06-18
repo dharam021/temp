@@ -43,7 +43,7 @@
 					        <div class="col-md-6">
 					            <div class="media">
 						              <div class="media-left">
-						                <a href="{% url 'menu' restaurant.id %}">
+						                <a href="{% url 'restaurant:menu' restaurant.id %}">
 						                  <img class="img-fluid img-responsive media-object" style="height: 80px" src="{{ restaurant.image.url }}" alt="{{ restaurant.name }}">
 						                </a>
 						              </div>

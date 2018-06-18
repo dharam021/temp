@@ -9,14 +9,14 @@ class RestaurantManager(models.Manager):
 		return qs.filter(name__icontains=query)
 
 class Restaurant(models.Model):
-	name = models.CharField(max_length = 200)
+	name = models.CharField(max_length = 200 )
 	slug = models.SlugField(max_length = 15)
 	email = models.EmailField(max_length = 254)
 	address = models.CharField(max_length=100)
 	city = models.CharField(max_length=100)
 	website = models.TextField(validators=[URLValidator()])
 	telephone = models.PositiveIntegerField()
-	owner = models.ForeignKey(Owner , on_delete = models.CASCADE)
+	owner = models.ForeignKey(Owner , on_delete = models.CASCADE , related_name = 'restaurant')
 	image = models.ImageField(upload_to='restaurant/' , null = True , blank = True)
 	objects = RestaurantManager()
 	def __str__(self):

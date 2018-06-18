@@ -10,7 +10,7 @@
 	<div class="container">
 	  <div class="row">
 	             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 shop-tab-menu">
-			        	isme sort wala aaegaa
+			        	{{ request.user }}
 			      </div><br>
 			      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 shop-tab">
 			       	<div class="container">
@@ -23,7 +23,7 @@
 					        <div class="col-md-6">
 					            <div class="media">
 						              <div class="media-left">
-						                <a href="{% url 'menu' restaurant.id %}">
+						                <a href="{% url 'restaurant:menu' restaurant.id %}">
 						                  <img class="img-fluid img-responsive media-object" style="height: 80px" src="{{ restaurant.image.url }}" alt="{{ restaurant.name }}">
 						                </a>
 						              </div>

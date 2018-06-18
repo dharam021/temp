@@ -1,8 +1,11 @@
-{% extends 'basic_app/base.html' %}
-{% block body %}
-	<div class="jumbotron">
+{% extends 'base.html' %}
+{% block content %}
+	<div class="container">
+		{% if form.errors %}
+			<h3>Invalid Credentials</h3>
+		{% endif %}
 		<h1>Please Login</h1>
-		<form action="{% url 'basic_app:user_login' %}" method="post">
+		<form method="post">
 			{% csrf_token %}
 			<label for="username">Username:</label>
 			<input type="text" name="username" placeholder="Username">
@@ -10,6 +13,6 @@
 			<input type="password" name="password" placeholder="Password">
 			<input type="submit" value="Login">
 		</form>
-		<h3>Django level 5</h3>
+		
 	</div>
 {% endblock %}
